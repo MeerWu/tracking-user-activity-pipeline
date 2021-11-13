@@ -1,0 +1,125 @@
+attempts = spark.read.format("kafka").option("kafka.bootstrap.servers", "kafka:29092").option("subscribe", "exam-attempts").option("startingOffsets", "earliest").option("endingOffsets", "latest").load()
+attempts.show()
+attempts.printSchema()
+attempts.count()
+attempts = attempts.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+attempts.printSchema()
+attempts.show()
+attempts.cache()
+from pyspark.sql import Row
+import json
+import sys
+sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
+def extract_question_details(row):
+    # load the value of each row, where each value is a record in the json file
+    attempts = json.loads(row.value)
+    
+    # get all the key-value pairs nested within "questions" for this row if "questions" is a valid key within "sequences"
+    questions_rows = []
+    if "sequences" in attempts.keys():
+        if "questions" in attempts["sequences"].keys():
+            questions = attempts["sequences"]["questions"]
+    
+    # get the data fields needed; default the values nested within "questions" to -99 to avoid KeyError
+    for q in questions:
+        q_dict = {"question_id": q["id"],
+                  "question_incomplete": -99,
+                  "question_correct": -99,
+                  "question_submitted": -99,
+                  "exam_id": attempts["base_exam_id"],
+                  "exam_name": attempts["exam_name"],
+                  "user_id": attempts["user_exam_id"],
+                  "start_time": attempts["started_at"]}
+        if "user_incomplete" in q.keys():
+            q_dict["question_incomplete"] = q["user_incomplete"]
+        if "user_correct" in q.keys():
+            q_dict["question_correct"] = q["user_correct"]
+        if "user_submitted" in q.keys():
+            q_dict["question_submitted"] = q["user_submitted"]
+        # append data for this question to a list of questions as a sparkSQL Row
+        questions_rows.append(Row(**q_dict))
+    # return a list of SparkSQL Rows
+    return questions_rows
+def extract_count_details(row):
+    # load the value of each row, where each value is a record in the json file
+    attempts = json.loads(row.value)
+    
+    # get the data fields needed; if certain nested values don't exist, default to -99
+    count_details = {"exam_id": attempts["base_exam_id"],
+                     "certification": attempts["certification"],
+                     "exam_name": attempts["exam_name"],
+                     "max_attempts": attempts["max_attempts"]}
+    if "counts" in attempts["sequences"].keys():
+        count_details["num_questions"] = attempts["sequences"]["counts"]["total"]
+        count_details["num_correct"] = attempts["sequences"]["counts"]["correct"]
+        count_details["num_incorrect"] = attempts["sequences"]["counts"]["incorrect"]
+    else:
+        count_details["num_questions"] = -99
+        count_details["num_correct"] = -99
+        count_details["num_incorrect"] = -99
+    count_details["started_at"] = attempts["started_at"]
+    count_details["user_exam_id"] = attempts["user_exam_id"]
+    
+    # return a single SparkSQL Row of a dictionary with the data (nested or not)
+    return Row(**count_details)
+questions_df = attempts.rdd.flatMap(extract_question_details).toDF()
+attempts_df = attempts.rdd.map(extract_count_details).toDF()
+attempts.rdd.map(extract_count_details)
+questions_df = questions_df.select(questions_df.exam_id, questions_df.exam_name, questions_df.question_id, questions_df.question_correct.cast('int'), questions_df.question_incomplete.cast('int'), questions_df.question_submitted.cast('int'), questions_df.start_time, questions_df.user_id)
+questions_df.printSchema()
+attempts_df = attempts_df.select(attempts_df.certification.cast("boolean"), attempts_df.exam_id, attempts_df.exam_name, attempts_df.max_attempts.cast("float"), attempts_df.num_correct.cast("int"), attempts_df.num_incorrect.cast("int"), attempts_df.num_questions.cast("int"), attempts_df.started_at, attempts_df.user_exam_id)
+attempts_df.printSchema()
+attempts_df.show()
+questions_df.registerTempTable("questions")
+attempts_df.registerTempTable("attempts")
+spark.sql("select certification from attempts group by certification").show()
+spark.sql("select max_attempts from attempts group by max_attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, str_to_date(started_at, '%Y-%m-%dT%H:%M:%S.%fZ') as started_at, user_exam_id from attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, to_timestamp(started_at, '%Y-%m-%dT%H:%M:%S.%fZ') as started_at, user_exam_id from attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, to_timestamp(started_at, 'yyyy-MM-ddTHH:mm:ss.ffZ') as started_at, user_exam_id from attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, parse_timestamp(started_at, '%Y-%m-%dT%H:%M:%S.%fZ') as started_at, user_exam_id from attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, parse_timestamp('%Y-%m-%dT%H:%M:%S.%fZ', started_at) as started_at, user_exam_id from attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, parse_date('%Y-%m-%dT%H:%M:%S.%fZ', started_at) as started_at, user_exam_id from attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, str_to_date(started_at, '%Y-%m-%dT%H:%M:%S.%fZ') as started_at, user_exam_id from attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, parse_timestamp(started_at, '%Y-%m-%dT%H:%M:%S.%fZ') as started_at, user_exam_id from attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, to_timestamp(started_at, 'yyyy-MM-ddTHH:mm:ss.ffZ') as started_at, user_exam_id from attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, to_timestamp(started_at, 'yyyy-MM-dd HH:mm:ss') as started_at, user_exam_id from attempts").show()
+spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, to_timestamp(started_at, 'yyyy-MM-ddTHH:mm:ss.sssZ') as started_at, user_exam_id from attempts").show()
+attempts_df.select(spark.sql.functions.to_timestamp(attempts_df.started_at, 'yyyy-MM-ddTHH:mm:ss.sssZ')).show()
+from pyspark.sql.functions import to_timestamp
+attempts_df.select(to_timestamp(attempts_df.started_at, 'yyyy-MM-ddTHH:mm:ss.sssZ').alias('started_at')).show()
+attempts_df.select(to_timestamp(attempts_df.started_at, 'yyyy-MM-dd HH:mm:ss').alias('started_at')).show()
+from datetime.datetime import strptime
+from datetime import datetime
+str_to_time = lambda s: datetime.striptime(s, "%Y-%m-%dT%H:%M:%S.%fZ")
+attempts_df.select(str_to_time(attempts_df.started_at).alias('started_at')).show()
+str_to_time = lambda s: datetime.strptime(s, "%Y-%m-%dT%H:%M:%S.%fZ")
+attempts_df.select(str_to_time(attempts_df.started_at).alias('started_at')).show()
+str_to_time = lambda x: [datetime.strptime(s, "%Y-%m-%dT%H:%M:%S.%fZ") for s in x]
+attempts_df.select(str_to_time(attempts_df.started_at).alias('started_at')).show()
+question_details = spark.sql("select exam_id, exam_name, question_id, sum(question_correct) as num_correct, sum(question_submitted)-sum(question_correct)-sum(question_incomplete) as num_incorrect, sum(question_incomplete) as num_incomplete, sum(question_submitted) as num_submits, count(question_id) as num_attempts, count(distinct user_id) as num_users from questions group by exam_id, exam_name, question_id order by exam_name")
+question_details.show()
+attempts_df.show()
+attempts_details = spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, user_exam_id)
+attempts_details = spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, user_exam_id")
+attempts_details = spark.sql("select exam_id, exam_name, num_correct, num_incorrect, num_questions, user_exam_id from attempts")
+attempts_details.show()
+question_details = spark.sql("select exam_id, exam_name, question_id, sum(question_correct) as num_correct_submits, sum(question_submitted)-sum(question_correct)-sum(question_incomplete) as num_incorrect_submits, sum(question_incomplete) as num_incomplete_submits, sum(question_submitted) as num_submits, count(question_id) as num_attempts, count(distinct user_id) as num_users from questions group by exam_id, exam_name, question_id order by exam_name")
+question_details.show()
+question_details.write.parquet("/tmp/assessment_questions")
+attempts_details.write.parquet("/tmp/assessment_attempts_details")
+attempt_details.show()
+attempts_details.show()
+spark.sql("select count(*) as num_assessments from attempts").show()
+spark.sql("select exam_name, count(exam_name) as num_exams, round(avg(num_correct)/first(num_questions)*100) as avg_performance from attempts where num_questions != -99 group by exam_name order by num_exams desc").show()
+spark.sql("select exam_name, count(exam_name) as num_exams, round(avg(num_correct)/first(num_questions)*100) as avg_performance from attempts where num_questions != -99 group by exam_name order by num_exams desc limit 5").show()
+sparl.sql("select exam_name, question_id, (num_correct_submits/num_submits) as accuracy, num_users from questions order by accuracy desc").show()
+spark.sql("select exam_name, question_id, (num_correct_submits/num_submits) as accuracy, num_users from questions order by accuracy desc").show()
+spark.sql("select exam_name, question_id, num_correct_submits/num_submits as accuracy, num_users from questions order by accuracy desc").show()
+question_details.registerTempTable("questions")
+spark.sql("select exam_name, question_id, num_correct_submits/num_submits as accuracy, num_users from questions order by accuracy desc").show()
+spark.sql("select count(*) as num_questions from questions where num_correct_submits/num_submits = 1").show()
+spark.sql("select count(*) as num_questions from questions").show()
+spark.sql("select count(*) as num_100%_questions from questions where num_correct_submits/num_submits = 1").show()
+spark.sql("select count(*) as num_100_questions from questions where num_correct_submits/num_submits = 1").show()
+spark.sql("select count(*) as num_questions from questions").show()

@@ -1,0 +1,385 @@
+    1  mkdir w205
+    2  cd w205
+    3  git clone https://github.com/mids-w205-schioberg5/course-content.git
+    4  git clone https://github.com/mids-w205-schioberg5/course-content.git
+    5  git clone https://github.com/mids-w205-schioberg/project-1-MeerWu.git
+    6  cd project-1-MeerWu/
+    7  ls
+    8  git branch
+    9  git checkout -b meer-proj1
+   10  git branch
+   11  git brach
+   12  cd w205/project-1-MeerWu/
+   13  git branch
+   14  git --set-upstream
+   15  git branch meer-proj1
+   16  git checkout meer-proj1
+   17  vim README.md 
+   18  git status
+   19  git add README.md 
+   20  git commit -m "testing setup by modifying README"
+   21  fir config --global user.email meerwu98@gmail.com
+   22  git config --global user.email meerwu98@gmail.com
+   23  git commit -m "testing setup by modifying README"
+   24  git config --global user.name MeerWu
+   25  git commit -m "testing setup by modifying README"
+   26  git branch
+   27  git pull
+   28  git pull origin master
+   29  git branch
+   30  git push
+   31  git push --set-upstream origin meer-proj1
+   32  git branch
+   33  cd w205
+   34  curl -L -o annot_fpid.json https://goo.gl/qWiu7d
+   35  curl -L -o lp_data.csv https://goo.gl/FDFPYB
+   36  bq query --use_legacy_sql=false 'SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
+   37  bq query --nouse_legacy_sql 'SELECT count(*) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
+   38  bq query --nouse_legacy_sql 'SELECT count(disint station_id) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
+   39  bq query --nouse_legacy_sql 'SELECT count(distinct station_id) FROM `bigquery-public-data.san_francisco.bikeshare_status`'
+   40  bq query --nouse_legacy_sql 'SELECT * FROM `week-1-lecture-315021:s99`'
+   41  cd w205
+   42  docker run redis
+   43  docker ps
+   44  docker run --name myredis -d redis
+   45  docker ps
+   46  docker stop myredis
+   47  docker rm myreids
+   48  docker ps
+   49  docker ps -a
+   50  docker run -d --name miredis -p 6379:6379 redis
+   51  ipython
+   52  docker ps
+   53  ipython
+   54  pip install redis
+   55  ipython
+   56  docker stop redis
+   57  docker stop miredis
+   58  docker rm miredis
+   59  docker-compose
+   60  ls
+   61  mkdir redis-standalone
+   62  cd redis-standalone/
+   63  cp ../course-content/05-Storing-Data-II/example-0-docker-compose.yml docker-compose.yml
+   64  ls
+   65  vim docker-compose.yml 
+   66  docker-compose up -d
+   67  ipython
+   68  vim docker-compose.yml
+   69  ipython
+   70  ipython
+   71  docker-compose down
+   72  cd ..
+   73  mkdir redis-cluster
+   74  cd redis-cluster/
+   75  cp ../course-content/05-Storing-Data-II/example-1-docker-compose.yml docker-compose.yml
+   76  ls
+   77  vim docker-compose.yml
+   78  docker-compose up -d
+   79  docker-compose ps
+   80  ipython
+   81  docker-compose exec mids bash
+   82  docker-compose ps
+   83  docker ps
+   84  docker-compose logs -f redis
+   85  docker-compose logs -f mids
+   86  docker-compose down
+   87  cd w205/project-1-MeerWu/
+   88  git branch
+   89  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN "morning peak" WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN "afternoon peak" ELSE "not peak" END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 AND (EXTRACT(hour from start_date) BETWEEN 7 AND 9 OR EXTRACT(hour from start_date) BETWEEN 16 AND 18) GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+   90  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 AND (EXTRACT(hour from start_date) BETWEEN 7 AND 9 OR EXTRACT(hour from start_date) BETWEEN 16 AND 18) GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+   91  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN "morning peak" WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN "afternoon peak" ELSE "not peak" END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 AND (EXTRACT(hour from start_date) BETWEEN 7 AND 9 OR EXTRACT(hour from start_date) BETWEEN 16 AND 18) GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+   92  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 12 AND 18'
+   93  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 0 AND 11'
+   94  git add Project_1.ipynb 
+   95  git commit -m "upload project 1 notebook draft"
+   96  git branch
+   97  git pull
+   98  git status
+   99  git add Project_1.ipynb 
+  100  git status
+  101  git commit -m "upload project 1 notebook draft"
+  102  git push
+  103  git pull
+  104  git add Project_1.ipynb 
+  105  git commit -m "completed report"
+  106  git push
+  107  cd w205/project-1-MeerWu/
+  108  git branch
+  109  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips`'
+  110  bq query --nouse_legacy_sql 'SELECT MIN(start_date) AS earliest_start, MAX(end_date) AS latest_end FROM `bigquery-public-data.san_francisco.bikeshare_trips`'
+  111  bq query --nouse_legacy_sql 'SELECT COUNT(distinct bike_number) FROM `bigquery-public-data.san_francisco.bikeshare_trips`'
+  112  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips`'
+  113  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips`'
+  114  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from end_date) BETWEEN 12 AND 24'
+  115  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from end_date) BETWEEN 0 AND 12'
+  116  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from end_date) BETWEEN 0 AND 11'
+  117  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from end_date) BETWEEN 12 AND 18'
+  118  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from end_date) BETWEEN 12 AND 17'
+  119  bq query --nouse_legacy_sql 'SELECT COUNT(*) FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from end_date) BETWEEN 12 AND 18'
+  120  bq query --nouse_legacy_sql 'SELECT EXTRACT(hour from start_date) AS start_hour, COUNT(*) AS number_of_trips'
+  121  FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+  122  bq query --nouse_legacy_sql 'SELECT EXTRACT(hour from start_date) AS start_hour, COUNT(*) AS number_of_trips'
+  123  FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+  124  GROUP BY start_hour ORDER BY number_of_trips DESC
+  125  SELECT EXTRACT(hour from start_date) AS start_hour, COUNT(*) AS number_of_trips
+  126  FROM `bigquery-public-data.san_francisco.bikeshare_trips`
+  127  WHERE subscriber_type = 'Subscriber'
+  128  GROUP BY start_hour ORDER BY number_of_trips DESC
+  129  bq query --nouse_legacy_sql 'SELECT EXTRACT(hour from start_date) AS start_hour, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(DAYOFWEEK from start_date) BETWEEN 2 AND 6 GROUP BY start_hour ORDER BY number_of_trips DESC'
+  130  bq query --nouse_legacy_sql 'SELECT EXTRACT(hour from start_date) AS start_hour, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(DAYOFWEEK from start_date) BETWEEN 2 AND 6 AND subscriber_type='Subscriber' GROUP BY start_hour ORDER BY number_of_trips DESC'
+  131  bq query --nouse_legacy_sql 'SELECT EXTRACT(hour from start_date) AS start_hour, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(DAYOFWEEK from start_date) BETWEEN 2 AND 6 AND subscriber_type="Subscriber" GROUP BY start_hour ORDER BY number_of_trips DESC'
+  132  bq query --nouse_legacy_sql 'SELECT EXTRACT(hour from start_date) AS start_hour, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(DAYOFWEEK from start_date) N 2 AND 6 GROUP BY start_hour ORDER BY number_of_trips DESC'
+  133  bq query --nouse_legacy_sql 'SELECT EXTRACT(hour from start_date) AS start_hour, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(DAYOFWEEK from start_date) BETWEEN 2 AND 6 GROUP BY start_hour ORDER BY number_of_trips DESC'
+  134  bq query --nouse_legacy_sql 'SELECT EXTRACT(hour from start_date) AS start_hour, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(DAYOFWEEK from start_date) NOT BETWEEN 2 AND 6 GROUP BY start_hour ORDER BY number_of_trips DESC'
+  135  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 0 AND 11 GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  136  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 12 AND 18 GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  137  bq query --nouse_legacy_sql 'SELECT CONCAT(start_station_name,', ',end_station_name) AS trip_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` GROUP BY trip_name  ORDER BY number_of_trips DESC'
+  138  bq query --nouse_legacy_sql 'SELECT CONCAT(start_station_name, end_station_name) AS trip_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` GROUP BY trip_name  ORDER BY number_of_trips DESC'
+  139  bq query --nouse_legacy_sql 'SELECT CONCAT(start_station_name,", ",end_station_name) AS trip_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` GROUP BY trip_name  ORDER BY number_of_trips DESC'
+  140  bq query --nouse_legacy_sql 'SELECT CONCAT(start_station_name,", ",end_station_name) AS trip_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) <= 6 GROUP BY trip_name ORDER BY number_of_trips DESC'
+  141  bq query --nouse_legacy_sql 'SELECT CONCAT(start_station_name,", ",end_station_name) AS trip_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) <= 18 GROUP BY trip_name ORDER BY number_of_trips DESC'
+  142  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 7 AND 9 GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  143  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 0 AND 11 AND EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  144  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 12 AND 18 AND EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  145  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 7 AND 9 AND EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  146  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 16 AND 18 AND EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  147  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN “morning peak” WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN “afternoon peak” END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+  148  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN “morning peak” WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN “afternoon peak” ELSE “not peak” END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 AND trip_time != “not peak” GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+  149  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN ‘morning peak’ WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN ‘afternoon peak’ ELSE ‘not peak’ END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 AND trip_time != ‘not peak’ GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+  150  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN \‘morning peak\’ WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN \‘afternoon peak\’ ELSE \‘not peak\’ END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 AND trip_time != \‘not peak\’ GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+  151  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN ‘morning peak’ WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN ‘afternoon peak’ ELSE ‘not peak’ END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 AND trip_time != ‘not peak’ GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+  152  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN "morning peak" WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN "afternoon peak" ELSE "not peak" END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 AND trip_time != "not peak" GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+  153  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN "morning peak" WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN "afternoon peak" ELSE "not peak" END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 AND EXTRACT(hour from start_date) BETWEEN 7 AND 9 AND EXTRACT(hour from start_date) BETWEEN 16 AND 18 GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+  154  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN "morning peak" WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN "afternoon peak" ELSE "not peak" END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+  155  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips, CASE WHEN EXTRACT(hour from start_date) BETWEEN 7 AND 9 THEN "morning peak" WHEN EXTRACT(hour from start_date) BETWEEN 16 AND 18 THEN "afternoon peak" ELSE "not peak" END AS trip_time FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(dayofweek from start_date) BETWEEN 2 AND 6 AND (EXTRACT(hour from start_date) BETWEEN 7 AND 9 OR EXTRACT(hour from start_date) BETWEEN 16 AND 18) GROUP BY start_station_name, end_station_name, trip_time ORDER BY number_of_trips DESC'
+  156  git branch
+  157  jupyter notebook Project_1.ipynb
+  158  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 7 AND 9 AND EXTRACT(dayofweek from start_date) NOT BETWEEN 2 AND 6 GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  159  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 11 AND 16 AND EXTRACT(dayofweek from start_date) NOT BETWEEN 2 AND 6 GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  160  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 11 AND 16 AND EXTRACT(dayofweek from start_date) NOT BETWEEN 2 AND 6 AND subcriber_type="Customer" GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  161  bq query --nouse_legacy_sql 'SELECT start_station_name, end_station_name, COUNT(*) AS number_of_trips FROM `bigquery-public-data.san_francisco.bikeshare_trips` WHERE EXTRACT(hour from start_date) BETWEEN 11 AND 16 AND EXTRACT(dayofweek from start_date) NOT BETWEEN 2 AND 6 AND subscriber_type="Customer" GROUP BY start_station_name, end_station_name ORDER BY number_of_trips DESC'
+  162  cd w205
+  163  mkdir kafka
+  164  cd kafka
+  165  cp ../course-content/06-Transforming-Data/docker-compose.yml .
+  166  vim docker-compose.yml 
+  167  docker-compose up -d
+  168  docker ps
+  169  docker-compose up -d
+  170  docker-compose ps
+  171  docker ps
+  172  logs kafka | grep -i started
+  173  docker-compose logs kafka | grep -i started
+  174  docker-compose exec kafka kafka-topics --create --topic foo --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  175  docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  176  docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
+  177  docker-compose exec kafka bash -c "seq 42 | kafka-console-producer --request-required-acks 1 --broker-list localhost:29092 --topic foo && echo 'Produced 42 messages.'"
+  178  docker-compose exec kafka kafka-console-consumer --bootstrap-server localhost:29092 --topic foo --from-beginning --max-messages 42
+  179  docker-compose exec kafka kafka-console-consumer --bootstrap-server localhost:29092 --topic foo --from-beginning
+  180  docker-compose exec kafka kafka-console-consumer --bootstrap-server localhost:29092 --topic foo --from-beginning --max-messages 42
+  181  docker-compose down
+  182  curl -L -o github-example-large.json https://goo.gl/Y4MD58
+  183  docker-compose up -d
+  184  docker-compose logs -f kafka
+  185  docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  186  docker-compose exec kafka kafka-topics --describe --topic foo --zookeeper zookeeper:32181
+  187  cat curl -L -o github-example-large.json https://goo.gl/Y4MD58
+  188  cat github-example-large.json
+  189  cat github-example-large.json | jq '.'
+  190  cat github-example-large.json | jq '.[]'
+  191  cat github-example-large.json | jq '.[]' -c
+  192  cat github-example-large.json | jq '.[]' -c | wc -l
+  193  docker-compose exec mids bash -c "cat /w205/kafka/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+  194  docker-compose exec kafka kafka-console-consumer --bootstrap-server kafka:29092 --topic foo --from-beginning --max-messages 42
+  195  docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e"
+  196  docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e" | wc -l
+  197  docker-compose exec kafka kafka-console-consumer -b kafka:29092 --topic foo --from-beginning --max-messages 4
+  198  docker-compose exec kafka kafka-console-consumer --b kafka:29092 --topic foo --from-beginning --max-messages 4
+  199  docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t foo -o beginning -e" | wc -l
+  200  docker-compose down
+  201  cd w205
+  202  git clone https://github.com/mids-w205-schioberg/project-2-MeerWu.git
+  203  cd project-2-MeerWu/
+  204  curl -L -o assessment-attempts-20180128-121051-nested.json https://goo.gl/ME6hjp
+  205  cd ..
+  206  mkdir spark-with-kafka
+  207  cd spark-with-kafka/
+  208  cp ../course-content/07-Sourcing-Data/docker-compose.yml .
+  209  ls
+  210  docker-compose up -d
+  211  docker-compose ps
+  212  docker-compose logs -f kafka | grep -i started
+  213  docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  214  docker-compose exec kafka bash -c "seq 42 | kafka-console-producer --request-required-acks 1 --broker-list kafka:29092 --topic foo && echo 'Produced 42 messages.'"
+  215  docker-compose exec spark pyspark
+  216  cd w205/spark-with-kafka/
+  217  docker-compose down
+  218  docker-compose ps
+  219  docker ps
+  220  docker-compose up -d
+  221  docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  222  curl -L -o github-example-large.json https://goo.gl/Y4MD58
+  223  head github-example-large.json 
+  224  docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c"
+  225  docker-compose exec mids bash -c "cat /w205/spark-with-kafka/github-example-large.json | jq '.[]' -c"
+  226       docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+  227  docker-compose exec mids bash -c "cat /w205/spark-with-kafka/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+  228  docker-compose exec spark pyspark
+  229  docker-compose down
+  230  docker-compose up -d
+  231  docker-compose exec mids bash -c "cat /w205/spark-with-kafka/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+  232  docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  233  docker-compose up -d
+  234  docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  235  curl -L -o github-example-large.json https://goo.gl/Y4MD58
+  236  docker-compose exec mids bash -c "cat /w205/github-example-large.json | jq '.[]' -c"
+  237  docker-compose exec mids bash -c "cat /w205/spark-with-kafka/github-example-large.json | jq '.[]' -c"
+  238  docker-compose exec mids bash -c "cat /w205/spark-with-kafka/github-example-large.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t foo && echo 'Produced 100 messages.'"
+  239  docker-compose exec kafka kafka-topics --create --topic foo --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  240  docker-compose exec spark pyspark
+  241  ../../bash_history
+  242  history
+  243  cd ../..
+  244  ls -lah
+  245  .bash_history
+  246  cd w205/spark-with-kafka/
+  247  ../../.bash_history
+  248  cat ../../.bash_history
+  249  ls =lah
+  250  ls -lah
+  251  docker-compose down
+  252  cd w205/project-2-MeerWu/
+  253  git branch
+  254  git branch meer-proj2
+  255  git checkout meer-proj2
+  256  git branch
+  257  curl -L -o assessment-attempts-20180128-121051-nested.json https://goo.gl/ME6hjp
+  258  head http://goo.gl/ME6hjp
+  259  head assessment-attempts-20180128-121051-nested.json 
+  260  cat /w205/project-2-MeerWu/assessment-attempts-20180128-121051-nested.json | jq '.[]'
+  261  cat assessment-attempts-20180128-121051-nested.json | jq '.[]'
+  262  head assessment-attempts-20180128-121051-nested.json | jq '.[]' -c
+  263  cat assessment-attempts-20180128-121051-nested.json | jq '.[]' -c | wc -l
+  264  cat assessment-attempts-20180128-121051-nested.json | jq -C '.[]' -c | wc -l
+  265  cat assessment-attempts-20180128-121051-nested.json | jq -C '.[]' -c
+  266  cat assessment-attempts-20180128-121051-nested.json | jq -C '.[].sequences' -c
+  267  docker-compose up -d
+  268  cp ../course-content/08-Querying-Data/docker-compose.yml .
+  269  vim docker-compose.yml
+  270  docker-compose up -d
+  271  curl -L -o assessment-attempts-20180128-121051-nested.json https://goo.gl/ME6hjp
+  272  docker-compose exec kafka kafka-topics --create --topic exam-attempts --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  273  docker-compose exec mids bash -c "cat /w205/project-2-MeerWu/assessment-attempts-20180128-121051-nested.json | jq '.[]' -c | wc -l"
+  274  docker-compose exec mids bash -c "cat /w205/project-2-MeerWu/assessment-attempts-20180128-121051-nested.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t exam-attempts && echo 'Produced 3280 messages.'"
+  275  history
+  276  docker-compose ps
+  277  less ../../.bash_history
+  278  docker-compose exec spark pyspark
+  279  docker-compose exec spark pyspark
+  280  docker-compose exec spark cat /root/.python_history
+  281  history
+  282  docker-compose exec spark cat /root/.python_history > pyspark-history-1.txt
+  283  cd w205/spark-with-kafka-and-hdfs/
+  284  cd w205/spark-with-kafka-and-hdfs/
+  285  vim docker-compose.yml 
+  286  vim docker-compose.yml 
+  287  docker-compose exec cloudera hadoop fs -ls /tmp/
+  288  docker-compose exec cloudera hadoop fs -ls /tmp/players
+  289  docker-compose exec cloudera hadoop fs -ls -h /tmp/players
+  290  docker-compose exec cloudera hadoop fs -ls -h /tmp/extracted_players
+  291  cp ../spark-with-kafka/github-example-large.json .
+  292  ls
+  293  docker-compose exec kafka kafka-topics --create --topic commits --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  294  docker-compose exec kafka kafka-topics --list --zookeeper zookeeper:32181
+  295  docker-compose exec mids bash -c "cat /w205/spark-with-kafka-and-hdfs/github-example-large.json |jq '.[]' -c | kafkacat -P -b kafka:29092 -t commits"
+  296  docker-compose exec cloudera hadoop fs -ls /tmp/some_commit_info/
+  297  docker-compose exec cloudera hadoop fs -ls /tmp/
+  298  docker-compose exec cloudera hadoop fs -ls /tmp
+  299  cd w205
+  300  mkdir spark-with-kafka-and-hdfs
+  301  cd spark-with-kafka-and-hdfs/
+  302  cp ../course-content/08-Querying-Data/docker-compose.yml
+  303  cp ../course-content/08-Querying-Data/docker-compose.yml .
+  304  docker-compose up -d
+  305  curl -L -o players.json https://goo.gl/vsuCpZ
+  306  docker-compose logs -f kafka
+  307  docker-compose logs -f kafka | grep -i started
+  308  docker-compose exec kafka kafka-topics --create --topic exam-attempts --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  309  docker-compose down
+  310  docker-compose up -d
+  311  docker-compose ps
+  312  docker-compose exec kafka kafka-topics --create --topic players --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  313  docker-compose exec cloudera hadoop fs -ls /tmp/
+  314  ls
+  315  docker-compose exec mids bash -c "cat /w205/spark-with-kafka-and-hdfs/players.json | jq '.[]' -c"
+  316  docker-compose exec mids bash -c "cat /w205/spark-with-kafka-and-hdfs/players.json | jq '.[]' -c |kafkacat -P -b kafka:29092 -t players"
+  317  docker-compose exec spark pyspark
+  318  docker-compose exec spark cat /root/.python_history > w8-pyspark-history.txt
+  319  cd w205/project-2-MeerWu/
+  320  docker-compose ps
+  321  docker-compose up -d
+  322  docker-compose exec kafka kafka-topics --create --topic exam-attempts --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  323  docker-compose exec mids bash -c "cat /w205/project-2-MeerWu/assessment-attempts-20180128-121051-nested.json | jq '.[]' -c | wc -l"
+  324  docker-compose exec kafka kafka-console-consumer --bootstrap-server localhost:29092 --topic foo --from-beginning --max-messages 42
+  325  docker-compose exec kafka kafka-console-consumer --bootstrap-server localhost:29092 --topic exam-attempts --from-beginning --max-messages 42
+  326  docker-compose exec kafka kafka-console-consumer --bootstrap-server kafka:29092 --topic exam-attempts --from-beginning --max-messages 42
+  327  docker-compose exec mids bash -c "kafkacat -C -b kafka:29092 -t exam-attempts -o beginning -e"
+  328  vim docker-compose.yml 
+  329  docker-compose exec spark pyspark
+  330  docker-compose exec mids bash -c "cat /w205/project-2-MeerWu/assessment-attempts-20180128-121051-nested.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t exam-attempts && echo 'Produced 3280 messages.'"
+  331  vim docker-compose.yml 
+  332  docker-compose ps
+  333  docker-compose down
+  334  docker-compose up -d
+  335  docker-compose ps
+  336  docker-compose exec kafka kafka-topics --create --topic exam-attempts --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  337  docker-compose exec mids bash -c "cat /w205/project-2-MeerWu/assessment-attempts-20180128-121051-nested.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t exam-attempts && echo 'Produced 3280 messages.'"
+  338  docker-compose exec spark pyspark
+  339  docker-compose exec spark cat /root/.python_history > pyspark-history-2.txt
+  340  cd w205
+  341  cd project-2-MeerWu/
+  342  git branch status
+  343  git branch
+  344  git branch -d status
+  345  git branch
+  346  git add Project2_Report.md 
+  347  git pull
+  348  git branch --set-upstream-to=origin/<branch> meer-proj2
+  349  git branch --set-upstream-to=origin/meer-proj2
+  350  git branch --set-upstream-to meer-proj2
+  351  git branch --set-upstream-to=origin/<branch> meer-proj2
+  352  git status
+  353  git commit -m "added report markdown file"
+  354  git push origin meer-proj2
+  355  docker-compose exec cloudera hadoop fs -ls /tmp/
+  356  docker-compose exec cloudera hadoop fs -ls /tmp/assessment_questions/
+  357  docker-compose exec cloudera hadoop fs -ls -h /tmp/assessment_questions/
+  358  cd w205
+  359  cd project-2-MeerWu/
+  360  docker-compose ps
+  361  docker-compose up -d
+  362  docker-compose exec kafka kafka-topics --create --topic exam-attempts --partitions 1 --repliacetion-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  363  docker-compose ps
+  364  docker-compose down
+  365  docker-compose up -d
+  366  docker-compose ps
+  367  docker-compose exec kafka kafka-topics --create --topic exam-attempts --partitions 1 --repliacetion-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  368  docker-compose exec kafka kafka-topics --create --topic exam-attempts --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  369  docker-compose exec mids bash -c "cat /w205/project-2-MeerWu/assessment-attempts-20180128-121051-nested.json | jq '.[]' -c | kafkacat -P -b kafka:29092 -t exam-attempts && echo 'Produced 3280 messages'"
+  370  docker-compose exec spark pyspark
+  371  cd w205/project-2-MeerWu/
+  372  docker-compose ps
+  373  docker-compose up -d
+  374  docker-compose ps
+  375  docker-compose exec kafka kafka-topics --create --topic exam-attempts --partitions 1 --replication-factor 1 --if-not-exists --zookeeper zookeeper:32181
+  376  docker-compose ps
+  377  docker-compose logs kafka
+  378  docker-compose exec spark pyspark
+  379  docker-compose exec spark cat /root/.python_history > MeerWu-pyspark-history.txt
+  380  docker-compose exec cloudera hadoop fs -ls -h /tmp/
+  381  docker-compose exec cloudera hadoop fs -ls -h /tmp/assessment_questions
+  382  docker-compose exec cloudera hadoop fs -ls -h /tmp/assessment_questions_details
+  383  docker-compose exec cloudera hadoop fs -ls -h /tmp/assessment_attempts_details/
+  384  docker-compose exec cloudera hadoop fs -ls -h /tmp/assessment_questions/
+  385  history > MeerWu-history.txt
